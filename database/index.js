@@ -28,7 +28,7 @@ let Question = mongoose.model('Questions', questionSchema);
 let save = function(params, results) {
 
 	for (var i = 0; i < results.length; i++) {
-		console.log(results[i].incorrect_answer)
+		// console.log(results[i].incorrect_answer)
   	  	var questionInst = new Question({category: results[i].category, type: results[i].type, difficulty: results[i].difficulty, 
   	  		question: results[i].question, correct_answer: results[i].correct_answer, incorrect_answers: results[i].incorrect_answers});
   	
@@ -40,9 +40,10 @@ let save = function(params, results) {
   	}
 }
 
-let getQuestions = function() {
+let getQuestions = function(category, callback) {
 	// fetches questions from DB
-
+  Question.find({category: category}).limit(10).exec(callback)
+  
 }
 
 module.exports.save = save;
