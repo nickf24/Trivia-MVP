@@ -18,7 +18,7 @@ class App extends React.Component {
 
   componentDidMount() {
     var instance = this;
-    axios.get('/questions/History').then(function(response) {
+    axios.get('/questions/General Knowledge').then(function(response) {
       console.log(response.data)
       instance.setState({
         questions: response.data

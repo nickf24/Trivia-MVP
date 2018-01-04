@@ -6,7 +6,16 @@ class CategorySearch extends React.Component {
 
   constructor(props) {
   	super(props);
+  	this.state = {
+  	  value: 'Sports'
+  	}
+  	this.handleChange = this.handleChange.bind(this);
   }
+
+  handleChange(event) {
+  	this.setState({value: event.target.value});
+  }
+
 
   render() {
   	var categoryList = [];
@@ -15,8 +24,8 @@ class CategorySearch extends React.Component {
   	}
   	return (
   	  <div>
-  		<select>
-  		  {categoryList.map((category) => <option> {category} </option>)}
+  		<select value = {this.state.value} onChange = {this.handleChange}>
+  		  {categoryList.map((category) => <option value = {category}> {category} </option>)}
   		</select>
   	  </div>
     )
