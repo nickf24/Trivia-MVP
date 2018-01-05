@@ -11,6 +11,7 @@ app.use(express.static(path.join(__dirname, '../client/dist')));
 app.get('/questions/:catId', (req, res) => {
   // get questions from DB, serves to client
   var category = req.params.catId;
+
   // e.g. 'History'
   db.getQuestions(category, function(err, data) {
   	if (err) {
@@ -30,21 +31,25 @@ app.post('/load', (req, res) => {
   // triggered on category change
   // load in lots of params
   var trivCategories = triviaAPI.triviaCategories;
+  console.log(trivCategories);
+
   for (var i = 0; i < trivCategories.length; i++) {
+  	// console.log(trivCategories[i].id)
   	var params = {amount: 10, category: trivCategories[i].id, difficulty: 'hard'}
+  	console.log('before trivAPI', params)
     triviaAPI.getQuestions(params, function(err, results) {
   	  if (err) {
   	    console.log(err);
   	  } else {
   	    db.save(params, results.data.results);
-  	    res.send('Successfully saved to the database!');
   	  }
     })
   }
+  res.send('Successfully saved to the database!');
 });
 
 app.post('/questions', (req, res) => {
-  // gets more questions from the DB if the user wants more than 10 Questions;
+  // gets more questions from the DB if the user wants more than 10 Questions
 });
 
 

@@ -12,24 +12,45 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      questions: exampleQuestions
+      questions: [],
+      category: 'General Knowledge'
     }
   }
 
   componentDidMount() {
     var instance = this;
-    axios.get('/questions/General Knowledge').then(function(response) {
-      console.log(response.data)
-      instance.setState({
-        questions: response.data
+    axios.get(`/questions/${this.state.category}`).then(function(response) {
+      console.log('current category', instance.state.category);
+      console.log('mounted with', response.data)
+
+      instance.setState((prevState) => {
+        return {questions: response.data, category: prevState.category}
       })
+    }).catch(function(error) {
+      console.log(error);
+    })
+  }
+
+  handleCategoryChange(category) {
+    
+    var instance = this;
+    var category = category;
+    console.log(category)
+    axios.get(`/questions/${category}`).then(function(response) {
+      //console.log('in handle category change', response.data)
+      instance.setState({
+        questions: response.data, 
+        category: category
+      })
+    }).catch(function(error) {
+      console.log(error);
     })
   }
 
   render() {
     return (
       <div>
-        <CategorySearch />
+        <CategorySearch changeFn = {this.handleCategoryChange.bind(this)} />
         {this.state.questions.map((question) => <TriviaQuestion question = {question} /> )}
       </div>
     )

@@ -7,13 +7,14 @@ class CategorySearch extends React.Component {
   constructor(props) {
   	super(props);
   	this.state = {
-  	  value: 'Sports'
+  	  value: 'General Knowledge'
   	}
   	this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
   	this.setState({value: event.target.value});
+  	this.props.changeFn(event.target.value);
   }
 
 
