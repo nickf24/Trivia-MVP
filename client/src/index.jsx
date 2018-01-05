@@ -22,10 +22,8 @@ class App extends React.Component {
   }
 
   handleCategoryChange(category) {
-    
     var instance = this;
     var category = category;
-    console.log(category)
     axios.get(`/questions/${category}`).then(function(response) {
       instance.setState({
         questions: response.data, 
@@ -56,15 +54,6 @@ class App extends React.Component {
     this.reload();
   }
   render() {
-    // if (this.state.questions.length === 0) {
-    //   return (
-    //       <div> 
-    //       <h1> Welcome To Trivia </h1>
-    //       <button onClick = {() => this.reload()}> Begin </button>
-    //       </div>
-
-    //     )
-    // }
     return (
       <div>
         <h1> {this.state.category} </h1>
@@ -78,7 +67,3 @@ class App extends React.Component {
 
 ReactDOM.render( <App />, document.getElementById('app'));
 
-
-// choose a category
-// post from API to DB
-// get from DB category questions

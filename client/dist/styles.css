@@ -3,5 +3,23 @@
 }
 
 .questions {
-  font-size: 20px
+  font-size: 20px;
+}
+
+.correctAnswer {
+  font-weight: bold;
+  color: green;
+  font-style: italic;
+}
+
+.incorrect {
+
+  font-weight: bold;
+  color: red;
+  font-style: italic;
+
+}
+
+.placeholder {
+	color: white;
 }

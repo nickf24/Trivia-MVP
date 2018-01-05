@@ -6,9 +6,7 @@ let db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'MONGO connection error!'));
 db.once('open', function() { 
-
 	console.log('connected to DB!');
-
 });
 
 

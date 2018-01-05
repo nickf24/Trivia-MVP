@@ -62,14 +62,22 @@ class TriviaQuestion extends React.Component {
     } else {
       var shuffleArr = this.state.answers;
     }
+    var tick = <div class = 'placeholder'> Placeholder </div>
+    if (this.state.correct === 'yes') {
+      tick = <div className = 'correctAnswer'> Correct! </div> 
+    }
 
-
+    if (this.state.correct === 'no') {
+      tick = <div className = 'incorrect'> Incorrect! </div>
+    }
   	return (
   		<div> 
   		  	<span className = 'questions'> {this.props.question.question} </span>
+          {tick}
   		  	<div className = 'options'>
-  		  	  {shuffleArr.map((answer) => <TriviaQuestionEntry clickFn = {this.onAnswerClick.bind(this)} answer = {answer} answersArr = {shuffleArr} />)}
+  		  	  {shuffleArr.map((answer) => <TriviaQuestionEntry clickFn = {this.onAnswerClick.bind(this)} answer = {answer} answersArr = {shuffleArr} correct = {this.state.correct} />)}
   		  	</div>
+          <div class = 'placeholder'> place </div>
   		</div> 
 
   	)
