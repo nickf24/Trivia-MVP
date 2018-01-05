@@ -9,6 +9,9 @@ class TriviaQuestionEntry extends React.Component {
 
 
   render() {
+    
+      // this.props.answer = this.props.answer.replace(/&quot;/g, '\\"');
+    
   	return (
   	  <div onClick = {() => {this.props.clickFn(this.props.answersArr, this.props.answer)}}> 
   	  	{this.props.answer} 
