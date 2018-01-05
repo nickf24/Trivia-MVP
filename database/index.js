@@ -9,8 +9,6 @@ db.once('open', function() {
 	console.log('connected to DB!');
 });
 
-
-
 let questionSchema = mongoose.Schema({
   category: String,
   type: String,
@@ -24,7 +22,7 @@ let questionSchema = mongoose.Schema({
 let Question = mongoose.model('Questions', questionSchema);
 
 let save = function(params, results) {
-	console.log(params);
+	// console.log(params);
 	for (var i = 0; i < results.length; i++) {
   	  	var questionInst = new Question({category: results[i].category, type: results[i].type, difficulty: results[i].difficulty, 
   	  		question: results[i].question, correct_answer: results[i].correct_answer, incorrect_answers: results[i].incorrect_answers});

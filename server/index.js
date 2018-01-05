@@ -41,8 +41,25 @@ app.post('/load', (req, res) => {
   	  }
     })
   }
-  //res.send('Successfully saved to the database!');
 });
+
+// app.get('/load', (req, res) => {
+//   console.log('load got');
+//   var trivCategories = triviaAPI.triviaCategories;
+//   for (var i = 0; i < trivCategories.length; i++) {
+//   	// console.log(trivCategories[i].id)
+//   	var params = {amount: 10, category: trivCategories[i].id, difficulty: 'hard'}
+//     triviaAPI.getQuestions(params, function(err, results) {
+//   	  if (err) {
+//   	    console.log(err);
+//   	  } else {
+//   	  	res.send(results.data.results);
+//   	    // db.save(params, results.data.results);
+//   	  }
+//     })
+//   }
+
+// })
 
 app.post('/delete', (req, res) => {
   // gets more questions from the DB if the user wants more than 10 Questions

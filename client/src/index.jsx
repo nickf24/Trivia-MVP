@@ -24,6 +24,9 @@ class App extends React.Component {
   handleCategoryChange(category) {
     var instance = this;
     var category = category;
+    console.log('category is', category)
+    // delete corrects
+
     axios.get(`/questions/${category}`).then(function(response) {
       instance.setState({
         questions: response.data, 
@@ -59,7 +62,9 @@ class App extends React.Component {
         <h1> {this.state.category} </h1>
         <CategorySearch changeFn = {this.handleCategoryChange.bind(this)} />
         <button onClick = {() => this.delete()}> Refresh Questions </button>
-        {this.state.questions.map((question) => <TriviaQuestion question = {question} /> )}
+        <div>
+        {this.state.questions.map((question) => <TriviaQuestion question = {question} key = {question.correct_answer.toString()} /> )}
+        </div> 
       </div>
     )
   }
