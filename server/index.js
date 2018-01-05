@@ -26,30 +26,36 @@ app.get('/questions/:catId', (req, res) => {
 });
 
 app.post('/load', (req, res) => {
-  // post questions to DB from client
-  // sends questions to DB with params
-  // triggered on category change
-  // load in lots of params
+  
   var trivCategories = triviaAPI.triviaCategories;
-  console.log(trivCategories);
-
   for (var i = 0; i < trivCategories.length; i++) {
   	// console.log(trivCategories[i].id)
   	var params = {amount: 10, category: trivCategories[i].id, difficulty: 'hard'}
-  	console.log('before trivAPI', params)
     triviaAPI.getQuestions(params, function(err, results) {
   	  if (err) {
   	    console.log(err);
   	  } else {
+  	  	
   	    db.save(params, results.data.results);
+  	    res.send(results.data.results);
   	  }
     })
   }
-  res.send('Successfully saved to the database!');
+  //res.send('Successfully saved to the database!');
 });
 
-app.post('/questions', (req, res) => {
+app.post('/delete', (req, res) => {
   // gets more questions from the DB if the user wants more than 10 Questions
+  // remove all posts from DB 
+  // fetch more Qs via API
+  db.deleteAll(function(err, results) {
+  	if (err) {
+  		console.log(err);
+  	} else {
+  		res.send('wiped db');
+  	}
+  });
+  // res.send('wiped db');
 });
 
 

@@ -18,17 +18,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    var instance = this;
-    axios.get(`/questions/${this.state.category}`).then(function(response) {
-      console.log('current category', instance.state.category);
-      console.log('mounted with', response.data)
-
-      instance.setState((prevState) => {
-        return {questions: response.data, category: prevState.category}
-      })
-    }).catch(function(error) {
-      console.log(error);
-    })
+    this.reload()
   }
 
   handleCategoryChange(category) {
@@ -37,20 +27,49 @@ class App extends React.Component {
     var category = category;
     console.log(category)
     axios.get(`/questions/${category}`).then(function(response) {
-      //console.log('in handle category change', response.data)
       instance.setState({
         questions: response.data, 
         category: category
       })
     }).catch(function(error) {
       console.log(error);
+    });
+  };
+
+  reload() {
+    var instance = this;
+    axios.post('/load').then(function(response) {
+      instance.setState((prevState) => {
+          return {questions: response.data, category: prevState.category}
+        })
+    }).catch(function(error) {
+      console.log(error);
     })
   }
 
+  delete() {
+    axios.post('/delete').then(function(response) {
+      console.log(response);
+    }).catch(function(error) {
+      console.log(error);
+    })
+    this.reload();
+  }
   render() {
+    // if (this.state.questions.length === 0) {
+    //   return (
+    //       <div> 
+    //       <h1> Welcome To Trivia </h1>
+    //       <button onClick = {() => this.reload()}> Begin </button>
+    //       </div>
+
+    //     )
+    // }
     return (
       <div>
+        <h1> {this.state.category} </h1>
         <CategorySearch changeFn = {this.handleCategoryChange.bind(this)} />
+        <button onClick = {() => this.delete()}> Refresh Questions </button>
         {this.state.questions.map((question) => <TriviaQuestion question = {question} /> )}
       </div>
     )
@@ -58,8 +77,7 @@ class App extends React.Component {
 }
 
 ReactDOM.render( <App />, document.getElementById('app'));
-	// {this.state.questions.map((question) => <TriviaQuestion question = {question}/> )}
-      
+
 
 // choose a category
 // post from API to DB

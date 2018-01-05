@@ -47,5 +47,10 @@ let getQuestions = function(category, callback) {
   
 }
 
+let deleteAll = function(callback) {
+  Question.remove({}, callback);
+}
+
 module.exports.save = save;
 module.exports.getQuestions = getQuestions;
+module.exports.deleteAll = deleteAll;
